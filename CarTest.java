@@ -5,7 +5,7 @@ import java.awt.*;
 import static org.junit.jupiter.api.Assertions.*;
 class CarTest {
 
-    Car carTest = new Car(8, Color.green, 150.0, "carTest", 0d, 0d);
+    Car carTest = new Car(8, Color.green, 150.0, "carTest", 0d, 0d, false);
     Saab95 saab95 = new Saab95(false);
     @Test
     void getNrDoors() {

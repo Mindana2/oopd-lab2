@@ -18,7 +18,7 @@ public class Car implements Movable {
 
     private int dirsIndex;
 
-    public Car(int nrDoors, Color color, Double enginePower, String modelName, Double xPos, Double yPos) {
+    public Car(int nrDoors, Color color, Double enginePower, String modelName, Double xPos, Double yPos, Boolean loadable) {
         this.nrDoors = nrDoors;
         this.color = color;
         this.enginePower = enginePower;
@@ -26,6 +26,7 @@ public class Car implements Movable {
         this.xPos = xPos;
         this.yPos = yPos;
         this.dirsIndex = 0;
+        this.loadable = loadable;
 
         stopEngine();
     }
@@ -34,6 +35,7 @@ public class Car implements Movable {
         return this.modelName;
     }
 
+    public boolean isLoadable(){return this.loadable;}
 
     public int getNrDoors() {
         return this.nrDoors;
@@ -75,6 +77,14 @@ public class Car implements Movable {
         return this.yPos;
     }
 
+    public void setxPos(double pos) {
+        this.xPos = pos;
+    }
+
+    public void setyPos(double pos) {
+        this.yPos = pos;
+    }
+
 
     public void move() {
 
@@ -99,6 +109,8 @@ public class Car implements Movable {
 
 
     }
+
+
 
 
     public void turnLeft() {
