@@ -1,12 +1,16 @@
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 class CarTest {
 
-    Car carTest = new Car(8, Color.green, 150.0, "carTest", 0d, 0d, false);
+    Car carTest = new Car(8, Color.green, 150.0, "carTest", 0d, 0d);
     Saab95 saab95 = new Saab95(false);
+    Workshop<Car> carworkshop = new Workshop<>(10);
+    CarTransport carTransport = new CarTransport(true, 5);
+
     @Test
     void getNrDoors() {
         assertEquals(8, carTest.getNrDoors());
@@ -120,5 +124,48 @@ class CarTest {
         double after = saab95.getCurrentSpeed();
         assertTrue(before > after);
     }
+
+
+    @Test
+    void typeSpecificWorkshop(){
+
+
+    }
+    @Test
+    void unloadCarTransport(){
+        carTransport.loadCar(saab95);
+        carTransport.raiseRamp();
+        carTransport.startEngine();
+        carTransport.gas(1);
+        carTransport.move();
+        carTransport.stopEngine();
+        carTransport.lowerRamp();
+        carTransport.unloadCar();
+        assertEquals(saab95.getyPos(), carTransport.getyPos()-1);
+    }
+
+    @Test
+    void rampWhileMoving(){
+        carTransport.lowerRamp();
+        carTransport.raiseRamp();
+        carTransport.startEngine();
+        carTransport.lowerRamp();
+        carTransport.raiseRamp();
+
+    }
+
+    @Test
+    void unloadWorkshop() {
+
+        ArrayList before = (ArrayList) carworkshop.getSlotList();
+
+        carworkshop.loadCar(saab95);
+        carworkshop.unloadCar(saab95);
+
+        ArrayList after = (ArrayList) carworkshop.getSlotList();
+
+        assertEquals(before, after);
+    }
+
 
 }

@@ -1,11 +1,11 @@
 import java.awt.*;
 
-public class Scania extends Car {
+public class Scania extends Truck {
 
     private double tipperAngle;
 
     public Scania(double tipperAngle) {
-        super(2, Color.red, 100.0, "Scania", 0d, 0d,false);
+        super(2, Color.red, 100.0, "Scania", 0d, 0d);
         stopEngine();
         this.tipperAngle = tipperAngle;
     }

@@ -2,7 +2,7 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
-public class CarTransport extends Car {
+public class CarTransport extends Car{
 
     private boolean rampDown;
     private Car[] slotList;
@@ -10,7 +10,7 @@ public class CarTransport extends Car {
 
 
     public CarTransport(boolean rampDown, int numSlots) {
-        super(2, Color.black, 100.0, "Car Transport", 0d, 0d, false);
+        super(2, Color.black, 100.0, "Car Transport", 0d, 0d);
         stopEngine();
         this.rampDown = rampDown;
         this.slotList = new Car[numSlots];
@@ -101,7 +101,7 @@ public class CarTransport extends Car {
 
     public void loadCar(Car car){
 
-        if (!car.isLoadable()){
+        if (car instanceof Truck){
             System.out.println(car.getModelName() + " is not Loadable");
         }
 
@@ -109,11 +109,11 @@ public class CarTransport extends Car {
             System.out.println("Car is too far");
         }
 
-        if (this.rampDown && car.isLoadable() && Math.abs(car.getxPos() - this.getxPos()) < 1 && Math.abs(car.getyPos() - this.getyPos()) < 1){
+        if (this.rampDown && !(car instanceof Truck) && Math.abs(car.getxPos() - this.getxPos()) < 1 && Math.abs(car.getyPos() - this.getyPos()) < 1){
             for (int i = 0; i < this.slotList.length; i++){
                 if (this.slotList[i] == null){
                     this.slotList[i] = car;
-                    System.out.println("loaded");
+                    System.out.println(car + " loaded");
                     return;
 
                 }
@@ -135,7 +135,7 @@ public class CarTransport extends Car {
         if (this.rampDown){
             for (int i = this.slotList.length-1; i >= 0; i--){
                 if (this.slotList[i] != null){
-                    this.slotList[i].setxPos(this.slotList[i].getxPos()+i);
+                    this.slotList[i].setyPos(this.slotList[i].getyPos()-1);
                     this.slotList[i] = null;
 
                     System.out.println("unloaded");

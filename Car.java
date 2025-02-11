@@ -10,7 +10,6 @@ public class Car implements Movable {
     public double currentSpeed; // The current speed of the car
     private Color color; // Color of the car
     private final String modelName;
-
     private double xPos;
     private double yPos;
 
@@ -18,7 +17,7 @@ public class Car implements Movable {
 
     private int dirsIndex;
 
-    public Car(int nrDoors, Color color, Double enginePower, String modelName, Double xPos, Double yPos, Boolean loadable) {
+    public Car(int nrDoors, Color color, Double enginePower, String modelName, Double xPos, Double yPos) {
         this.nrDoors = nrDoors;
         this.color = color;
         this.enginePower = enginePower;
@@ -26,7 +25,6 @@ public class Car implements Movable {
         this.xPos = xPos;
         this.yPos = yPos;
         this.dirsIndex = 0;
-        this.loadable = loadable;
 
         stopEngine();
     }
@@ -34,8 +32,6 @@ public class Car implements Movable {
     public String getModelName() {
         return this.modelName;
     }
-
-    public boolean isLoadable(){return this.loadable;}
 
     public int getNrDoors() {
         return this.nrDoors;
