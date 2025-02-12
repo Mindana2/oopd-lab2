@@ -1,5 +1,5 @@
 public interface Loadable {
-    void loadCar(Vehicle vehicle);
+    void loadCar(Car car);
 
     void unloadCar();
 

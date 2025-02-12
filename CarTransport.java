@@ -65,22 +65,17 @@ public class CarTransport extends Truck implements Loadable, Tippable{
 
     }
 
+    public void loadCar(Car car){
 
-    public void loadCar(Vehicle vehicle){
-
-        if (vehicle instanceof Truck){
-            System.out.println(vehicle.getModelName() + " is not Loadable");
-        }
-
-        if (Math.abs(vehicle.getxPos() - this.getxPos()) >= 1 || Math.abs(vehicle.getyPos() - this.getyPos()) >= 1){
+        if (Math.abs(car.getxPos() - this.getxPos()) >= 1 || Math.abs(car.getyPos() - this.getyPos()) >= 1){
             System.out.println("Car is too far");
         }
 
-        if (this.rampDown && !(vehicle instanceof Truck) && Math.abs(vehicle.getxPos() - this.getxPos()) < 1 && Math.abs(vehicle.getyPos() - this.getyPos()) < 1){
+        if (this.rampDown && Math.abs(car.getxPos() - this.getxPos()) < 1 && Math.abs(car.getyPos() - this.getyPos()) < 1){
             for (int i = 0; i < this.slotList.length; i++){
                 if (this.slotList[i] == null){
-                    this.slotList[i] = vehicle;
-                    System.out.println(vehicle + " loaded");
+                    this.slotList[i] = car;
+                    System.out.println(car + " loaded");
                     return;
 
                 }

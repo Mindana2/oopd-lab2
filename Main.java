@@ -17,10 +17,11 @@ public class Main {
 
 
 
+
         truckWorkshop.loadCar(scania);
         truckWorkshop.loadCar(cartransport);
 
-        
+        truckWorkshop.getSlotList();
 
     }
 }
