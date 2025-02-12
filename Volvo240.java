@@ -14,38 +14,22 @@ public class Volvo240 extends Car {
         return this.getEnginePower() * 0.01 * trimFactor;
     }
 
+
+    @Override
     public void incrementSpeed(double amount) {
-        currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, this.getEnginePower());
-        if (currentSpeed > this.getEnginePower()) {
-            currentSpeed = this.getEnginePower();
+        this.setCurrentSpeed(Math.min(getCurrentSpeed() + speedFactor() * amount, this.getEnginePower()));
+        if (this.getCurrentSpeed() > this.getEnginePower()) {
+            this.setCurrentSpeed(this.getEnginePower());
         }
     }
 
+    @Override
     public void decrementSpeed(double amount) {
-        currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount, 0);
-        if (currentSpeed < 0) {
-            currentSpeed = 0;
+        this.setCurrentSpeed(Math.max(getCurrentSpeed() - speedFactor() * amount, 0));
+        if (this.getCurrentSpeed() < 0) {
+            this.setCurrentSpeed(0);
         }
     }
 
 
-    public void gas(double amount){
-
-        if (amount >= 0 && amount <= 1) {
-            incrementSpeed(amount);
-        }
-
-        else {
-            System.out.println("Gas amount has to be between 0.0 and 1.0");
-        }
-    }
-
-    public void brake(double amount) {
-
-        if (amount >= 0 && amount <= 1) {
-            decrementSpeed(amount);
-        } else {
-            System.out.println("Break amount has to be between 0.0 and 1.0");
-        }
-    }
 }

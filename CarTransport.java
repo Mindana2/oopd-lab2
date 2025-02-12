@@ -2,10 +2,10 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
-public class CarTransport extends Car{
+public class CarTransport extends Truck implements Loadable, Tippable{
 
     private boolean rampDown;
-    private Car[] slotList;
+    private Vehicle[] slotList;
     private int numSlots;
 
 
@@ -21,65 +21,35 @@ public class CarTransport extends Car{
         return this.numSlots;
     }
 
-    public Car[] getSlotList(){
+    public Vehicle[] getSlotList(){
         return this.slotList;
     }
 
-    public void lowerRamp() {
+    public boolean getTipperState(){return this.rampDown;}
 
-        if (this.getCurrentSpeed() == 0) {
+
+
+    public void adjustTipper(int angle) {
+
+        if ((this.getCurrentSpeed() == 0) && (angle == 0)) {
+            this.rampDown = false;
+        }
+
+        if (this.getCurrentSpeed() == 0 && (angle == 70)) {
             this.rampDown = true;
         }
 
-        else{
-            System.out.println("Car Transport must be standing still to lower ramp");
-        }
-
-    }
-
-    public void raiseRamp() {
-        if (this.getCurrentSpeed() == 0) {
-            this.rampDown = false;
-        }
-        else {
-            System.out.println("Car Transport must be standing still to raise ramp");
-        }
-    }
-    public void incrementSpeed(double amount) {
-        currentSpeed = Math.min(getCurrentSpeed() + 10 * amount, this.getEnginePower());
-        if (currentSpeed > this.getEnginePower()) {
-            currentSpeed = this.getEnginePower();
-        }
-    }
-
-    public void decrementSpeed(double amount) {
-        currentSpeed = Math.max(getCurrentSpeed() -10 * amount, 0);
-        if (currentSpeed < 0) {
-            currentSpeed = 0;
-        }
-    }
-
-
-    public void gas(double amount){
-
-        if (amount >= 0 && amount <= 1) {
-            incrementSpeed(amount);
-        }
 
         else {
-            System.out.println("Gas amount has to be between 0.0 and 1.0");
+            System.out.println("Car Transport tipper angle must be 0 or 70");
         }
+
+
     }
 
-    public void brake(double amount) {
 
-        if (amount >= 0 && amount <= 1) {
-            decrementSpeed(amount);
-        } else {
-            System.out.println("Break amount has to be between 0.0 and 1.0");
-        }
-    }
 
+    @Override
     public void move() {
         if (!this.rampDown) {
             super.move();
@@ -92,28 +62,25 @@ public class CarTransport extends Car{
             }
         }
 
-        else {
-            System.out.println("Ramp must be up before moving");
-        }
 
     }
 
 
-    public void loadCar(Car car){
+    public void loadCar(Vehicle vehicle){
 
-        if (car instanceof Truck){
-            System.out.println(car.getModelName() + " is not Loadable");
+        if (vehicle instanceof Truck){
+            System.out.println(vehicle.getModelName() + " is not Loadable");
         }
 
-        if (Math.abs(car.getxPos() - this.getxPos()) >= 1 || Math.abs(car.getyPos() - this.getyPos()) >= 1){
+        if (Math.abs(vehicle.getxPos() - this.getxPos()) >= 1 || Math.abs(vehicle.getyPos() - this.getyPos()) >= 1){
             System.out.println("Car is too far");
         }
 
-        if (this.rampDown && !(car instanceof Truck) && Math.abs(car.getxPos() - this.getxPos()) < 1 && Math.abs(car.getyPos() - this.getyPos()) < 1){
+        if (this.rampDown && !(vehicle instanceof Truck) && Math.abs(vehicle.getxPos() - this.getxPos()) < 1 && Math.abs(vehicle.getyPos() - this.getyPos()) < 1){
             for (int i = 0; i < this.slotList.length; i++){
                 if (this.slotList[i] == null){
-                    this.slotList[i] = car;
-                    System.out.println(car + " loaded");
+                    this.slotList[i] = vehicle;
+                    System.out.println(vehicle + " loaded");
                     return;
 
                 }
@@ -125,10 +92,7 @@ public class CarTransport extends Car{
         System.out.println("Car Transport is full");
         }
 
-        if(!this.rampDown){
-            System.out.println("Ramp must be down to load car");
 
-        }
     }
 
     public void unloadCar(){
@@ -147,10 +111,6 @@ public class CarTransport extends Car{
             System.out.println("Car Transport is empty");
         }
 
-        else {
-            System.out.println("Ramp must be down to unload car");
-
-        }
 
 
     }

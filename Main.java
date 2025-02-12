@@ -11,16 +11,16 @@ public class Main {
 
         CarTransport cartransport = new CarTransport(false, 10);
         Workshop<Volvo240> volvo240Workshop = new Workshop<>(10);
-        //volvo240Workshop.loadCar(saab95);
+        Workshop<Vehicle> generic = new Workshop<>(10);
+        Workshop<Car> carWorkshop = new Workshop<>(10);
+        Workshop<Truck> truckWorkshop = new Workshop<>(10);
 
 
 
+        truckWorkshop.loadCar(scania);
+        truckWorkshop.loadCar(cartransport);
 
-
-
-
-
-
+        
 
     }
 }

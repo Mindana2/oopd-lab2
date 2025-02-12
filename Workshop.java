@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Workshop<T> {
+public class Workshop<T>{
 
     private final int numSlots;
     private ArrayList<T> slotList;

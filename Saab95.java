@@ -25,39 +25,26 @@ public class Saab95 extends Car {
         return this.getEnginePower() * 0.01 * turbo;
     }
 
+
+    @Override
     public void incrementSpeed(double amount) {
 
         if (this.getCurrentSpeed() + speedFactor() * amount >= this.getEnginePower()) {
-            this.currentSpeed = this.getEnginePower();
+            this.setCurrentSpeed(this.getEnginePower());
         } else {
-            this.currentSpeed = this.getCurrentSpeed() + speedFactor() * amount;
+            this.setCurrentSpeed(this.getCurrentSpeed() + speedFactor() * amount);
         }
 
     }
 
+    @Override
     public void decrementSpeed(double amount){
 
-            this.currentSpeed = this.getCurrentSpeed() - speedFactor() * amount;
-            if (this.currentSpeed < 0) {
-                this.currentSpeed = 0;
+            this.setCurrentSpeed(this.getCurrentSpeed() - speedFactor() * amount);
+            if (this.getCurrentSpeed() < 0) {
+                this.setCurrentSpeed(0);
             }
         }
 
-    public void gas (double amount){
-
-        if (amount >= 0 && amount <= 1) {
-            incrementSpeed(amount);
-        } else {
-            System.out.println("Gas amount has to be between 0.0 and 1.0");
-        }
-    }
-
-    public void brake (double amount){
-        if (amount >= 0 && amount <= 1) {
-            decrementSpeed(amount);
-        } else {
-            System.out.println("Break amount has to be between 0.0 and 1.0");
-        }
-    }
 }
 

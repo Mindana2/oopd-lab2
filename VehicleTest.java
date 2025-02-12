@@ -1,42 +1,16 @@
 import org.junit.jupiter.api.Test;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
-class CarTest {
+class VehicleTest {
 
-    Car carTest = new Car(8, Color.green, 150.0, "carTest", 0d, 0d);
+    Saab95 carTest = new Saab95(false);
     Saab95 saab95 = new Saab95(false);
     Workshop<Car> carworkshop = new Workshop<>(10);
-    CarTransport carTransport = new CarTransport(true, 5);
+    CarTransport carTransport = new CarTransport(false, 5);
+    Scania scania = new Scania(0);
 
-    @Test
-    void getNrDoors() {
-        assertEquals(8, carTest.getNrDoors());
-    }
-
-    @Test
-    void getEnginePower() {
-        assertEquals(150.0, carTest.getEnginePower());
-    }
-
-    @Test
-    void getCurrentSpeed() {
-        carTest.startEngine();
-        carTest.stopEngine();
-        assertEquals(0, carTest.getCurrentSpeed());
-
-    }
-
-    @Test
-    void getColor() {assertSame(Color.green, carTest.getColor());}
-
-    @Test
-    void setColor() {
-        carTest.setColor(Color.red);
-        assertSame(Color.red, carTest.getColor());
-    }
 
     @Test
     void startEngine() {
@@ -51,23 +25,6 @@ class CarTest {
         assertEquals(0, carTest.getCurrentSpeed());
     }
 
-    @Test
-    void getDirection() {
-        assertEquals("up", carTest.getDirection());
-        carTest.turnLeft();
-        assertEquals("left", carTest.getDirection());
-    }
-
-
-    @Test
-    void getxPos() {
-        assertEquals(0.0d, carTest.getxPos());
-    }
-
-    @Test
-    void getyPos() {
-        assertEquals(0.0d, carTest.getyPos());
-    }
 
     @Test
     void move() {
@@ -127,30 +84,44 @@ class CarTest {
 
 
     @Test
-    void typeSpecificWorkshop(){
+    void unloadCarTransportDifferentPos(){
 
-
-    }
-    @Test
-    void unloadCarTransport(){
+        carTransport.adjustTipper(70);
         carTransport.loadCar(saab95);
-        carTransport.raiseRamp();
+        carTransport.adjustTipper(0);
         carTransport.startEngine();
         carTransport.gas(1);
         carTransport.move();
         carTransport.stopEngine();
-        carTransport.lowerRamp();
+        carTransport.adjustTipper(70);
         carTransport.unloadCar();
         assertEquals(saab95.getyPos(), carTransport.getyPos()-1);
     }
 
     @Test
+    void adjustTipper(){
+
+        carTransport.adjustTipper(70);
+        assertTrue(carTransport.getTipperState());
+
+        scania.adjustTipper(30);
+        assertEquals(30, scania.getTipperAngle());
+
+
+        scania.adjustTipper(100);
+        assertEquals(70, scania.getTipperAngle());
+
+    }
+
+    @Test
     void rampWhileMoving(){
-        carTransport.lowerRamp();
-        carTransport.raiseRamp();
+
         carTransport.startEngine();
-        carTransport.lowerRamp();
-        carTransport.raiseRamp();
+
+        carTransport.adjustTipper(70);
+
+        assertNotEquals(true, carTransport.getTipperState());
+
 
     }
 
